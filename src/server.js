@@ -3,6 +3,7 @@ import cors from 'cors';
 import { errors } from 'celebrate';
 import 'dotenv/config';
 import notesRouter from './routes/notesRoutes.js';
+import authRouter from './routes/authRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { logger } from './middleware/logger.js';
@@ -17,6 +18,7 @@ export const startServer = async () => {
   app.use(cors());
   app.use(express.json());
   app.use(notesRouter);
+  app.use('/auth', authRouter);
   app.use(notFoundHandler);
   app.use(errors());
   app.use(errorHandler);
