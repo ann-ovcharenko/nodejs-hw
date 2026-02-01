@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { errors } from 'celebrate';
 import 'dotenv/config';
@@ -15,9 +16,10 @@ export const startServer = async () => {
   const app = express();
 
   app.use(logger);
-  app.use(cors());
+  app.use(cors({ credentials: true }));
   app.use(express.json());
-  app.use(notesRouter);
+  app.use(cookieParser());
+  app.use('/notes', notesRouter);
   app.use('/auth', authRouter);
   app.use(notFoundHandler);
   app.use(errors());
