@@ -19,8 +19,8 @@ export const startServer = async () => {
   app.use(cors({ credentials: true }));
   app.use(express.json());
   app.use(cookieParser());
-  app.use('/notes', notesRouter);
-  app.use('/auth', authRouter);
+  app.use(notesRouter);
+  app.use(authRouter);
   app.use(notFoundHandler);
   app.use(errors());
   app.use(errorHandler);

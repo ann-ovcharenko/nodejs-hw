@@ -21,7 +21,7 @@ const notesSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'User',
       required: true,
     },
   },
@@ -33,4 +33,4 @@ const notesSchema = new Schema(
 
 notesSchema.index({ title: 'text', content: 'text' });
 
-export const Note = model('note', notesSchema, 'notes');
+export const Note = model('Note', notesSchema);
