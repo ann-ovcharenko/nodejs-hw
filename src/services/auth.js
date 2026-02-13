@@ -18,8 +18,8 @@ export const createSession = async (userId) => {
 export const setSessionCookies = (res, session) => {
   const commonOptions = {
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   };
 
   res.cookie('accessToken', session.accessToken, {

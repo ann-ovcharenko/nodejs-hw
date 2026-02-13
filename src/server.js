@@ -9,6 +9,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { logger } from './middleware/logger.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
+import userRouter from './routes/userRoutes.js';
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -19,8 +20,9 @@ export const startServer = async () => {
   app.use(cors({ credentials: true }));
   app.use(express.json());
   app.use(cookieParser());
-  app.use(notesRouter);
-  app.use(authRouter);
+  app.use('/auth', authRouter);
+  app.use('/notes', notesRouter);
+  app.use('/users', userRouter);
   app.use(notFoundHandler);
   app.use(errors());
   app.use(errorHandler);
