@@ -10,9 +10,13 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendEmail = async (options) => {
+  if (!options.to && !options.email) {
+    throw new Error('Recipient email address is required');
+  }
+
   return await transporter.sendMail({
     from: options.from || process.env.SMTP_FROM,
-    to: options.email,
+    to: options.to || options.email,
     subject: options.subject,
     html: options.html,
   });
