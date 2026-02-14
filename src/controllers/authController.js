@@ -30,6 +30,7 @@ export const registerUser = async (req, res, next) => {
 
     try {
       await sendEmail({
+        from: process.env.SMTP_FROM,
         email: user.email,
         subject: 'Welcome to Notes App!',
         html: `<h1>Вітаємо, ${user.email}!</h1><p>Ви успішно зареєструвалися.</p>`,
@@ -185,6 +186,7 @@ export const requestResetEmail = async (req, res, next) => {
 
     try {
       await sendEmail({
+        from: process.env.SMTP_FROM,
         email: user.email,
         subject: 'Password reset email',
         html,

@@ -7,21 +7,18 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-/**
- * @param {Buffer} buffer
- * @returns {Promise<Object>}
- */
-
 export const saveFileToCloudinary = (buffer) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: 'avatars',
+        resource_type: 'image',
+        overwrite: true,
+        unique_filename: true,
+        use_filename: true,
       },
       (error, result) => {
-        if (error) {
-          return reject(error);
-        }
+        if (error) return reject(error);
         resolve(result);
       },
     );

@@ -10,15 +10,10 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendEmail = async (options) => {
-  try {
-    return await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: options.email,
-      subject: options.subject,
-      html: options.html,
-    });
-  } catch (error) {
-    console.error('❌ Помилка SMTP (sendMail.js):', error.message);
-    return null;
-  }
+  return await transporter.sendMail({
+    from: options.from || process.env.SMTP_FROM,
+    to: options.email,
+    subject: options.subject,
+    html: options.html,
+  });
 };
